@@ -1,6 +1,6 @@
 window.BLOGS = [
   {
-    "slug": "best-seo-services-in-india",
+    "slug": "https://nikanuweb.in/blogs/best-seo-services-in-india/",
     "title": "Best SEO Services in India",
     "category": "SEO",
     "date": "",
