@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popup – Nikanu Web Solution</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+body{margin:0;background:#f6f6f8;color:#14132a;font:400 16px/1.65 'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}
+.demo h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 10px}
+.demo p{color:#6b6a80;margin:0 0 22px}
+.demo button{padding:13px 26px;border-radius:999px;border:0;background:#14132a;color:#fff;font:600 15px inherit;font-family:inherit;cursor:pointer}
+/* ===== COPY FROM HERE: popup CSS (paste inside your <style>) ===== */
+.np{--ac:#7c6cf0;--navy:#282349;--tx:#14132a;--mut:#6b6a80;--line:#e6e4f0;--soft:#e9e6fb;position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(40,35,73,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;transition:opacity .45s ease;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;color:var(--tx);text-align:left}
+.np[hidden]{display:none}
+.np.on{opacity:1}
+.np *{box-sizing:border-box;margin:0}
+.np-box{position:relative;display:grid;grid-template-columns:1fr 1.05fr;width:100%;max-width:740px;max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-radius:28px;box-shadow:0 40px 90px -30px rgba(40,35,73,.65);transform-origin:50% 100%;animation:np-in .9s cubic-bezier(.16,1,.3,1) both}
+.np.out .np-box{animation:np-out .5s cubic-bezier(.55,0,.8,.2) both}
+@keyframes np-in{0%{opacity:0;transform:perspective(1100px) translateY(80px) rotateX(18deg) scale(.86)}55%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes np-out{0%{opacity:1;transform:none}100%{opacity:0;transform:perspective(1100px) translateY(60px) rotateX(-14deg) scale(.86)}}
+.np-i{animation:np-rise .75s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i,0)*70ms + 320ms)}
+@keyframes np-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.np-x{position:absolute;top:12px;right:12px;z-index:6;width:34px;height:34px;border-radius:50%;border:0;background:#f1effb;color:var(--tx);font:400 22px/1 inherit;cursor:pointer;transition:transform .3s,background .3s}
+.np-x:hover{background:var(--soft);transform:rotate(90deg)}
+.np-side{position:relative;overflow:hidden;padding:28px 26px;color:#fff;background:linear-gradient(135deg,#282349 0,#7c6cf0 100%);display:flex;flex-direction:column;justify-content:center}
+.np-side::before,.np-side::after{content:"";position:absolute;border-radius:50%;filter:blur(40px);animation:np-drift 10s ease-in-out infinite}
+.np-side::before{width:260px;height:260px;left:-80px;bottom:-90px;background:#a89cf5;opacity:.6}
+.np-side::after{width:210px;height:210px;right:-60px;top:-70px;background:#fff;opacity:.2;animation-delay:-4s}
+@keyframes np-drift{50%{transform:translate(26px,-18px)}}
+.np-dot{position:absolute;bottom:-10px;border-radius:50%;background:rgba(255,255,255,.75);animation:np-up linear infinite}
+@keyframes np-up{0%{transform:translateY(0);opacity:0}15%{opacity:.9}100%{transform:translateY(-460px);opacity:0}}
+.np-side>*:not(.np-dot){position:relative;z-index:1}
+.np-side img{width:104px;height:auto;display:block;margin-bottom:16px}
+.np-side h2{font-size:24px;font-weight:800;letter-spacing:-.03em;line-height:1.12;margin-bottom:8px}
+.np-side p{opacity:.88;font-size:14px;margin-bottom:16px}
+.np-side ul{list-style:none;padding:0;display:grid;gap:8px;font-size:13px;font-weight:600}
+.np-side li{display:flex;gap:10px;align-items:center}
+.np-side li::before{content:"✓";flex:none;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:11px;animation:np-pop .55s cubic-bezier(.2,1.7,.4,1) both;animation-delay:calc(var(--i,0)*70ms + 520ms)}
+@keyframes np-pop{from{transform:scale(0)}to{transform:scale(1)}}
+.np-form,.np-ok{padding:28px 26px;display:grid;gap:9px;align-content:center}
+.np-form[hidden],.np-ok[hidden]{display:none}
+.np-form h3{font-size:18px;font-weight:800;letter-spacing:-.02em;margin-bottom:2px;padding-right:30px}
+.np-form label{font-size:12px;font-weight:600;color:var(--mut)}
+.np-form input,.np-form select{width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:#f6f6f8;font:inherit;font-size:14px;color:var(--tx);transition:border .2s,box-shadow .2s,background .2s}
+.np-form input:focus,.np-form select:focus{outline:0;border-color:var(--ac);background:#fff;box-shadow:0 0 0 4px rgba(124,108,240,.16)}
+.np-btn{position:relative;overflow:hidden;padding:12px 22px;border-radius:999px;border:0;background:var(--tx);color:#fff;font:600 14px inherit;font-family:inherit;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.np-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);animation:np-shine 3.4s ease-in-out 1.8s infinite}
+@keyframes np-shine{0%{left:-60%}35%,100%{left:140%}}
+.np-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px rgba(20,19,42,.5)}
+.np-btn:disabled{opacity:.6;cursor:wait;transform:none}
+.np-note{font-size:11px;color:var(--mut)}
+.np-note a{color:var(--ac);font-weight:600}
+.np-msg{font-size:14px;font-weight:600;min-height:20px;color:var(--navy)}
+.np-msg.err{color:#c0392b}
+.np-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.np-ok{text-align:center;justify-items:center;grid-column:2;grid-row:1}
+.np-tick{position:relative;width:80px;height:80px}
+.np-tick::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ac);opacity:.35;animation:np-ring 1.6s ease-out .5s infinite}
+.np-tick svg{position:relative;width:80px;height:80px;display:block}
+.np-tick circle{fill:var(--ac);transform-box:fill-box;transform-origin:center;animation:np-pop .6s cubic-bezier(.2,1.6,.4,1) both}
+.np-tick path{fill:none;stroke:#fff;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:44;stroke-dashoffset:44;animation:np-draw .5s .45s ease-out forwards}
+@keyframes np-ring{0%{transform:scale(1);opacity:.35}100%{transform:scale(1.7);opacity:0}}
+@keyframes np-draw{to{stroke-dashoffset:0}}
+.np-ok h3{font-size:22px;font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.np-ok p{color:var(--mut);max-width:300px}
+.np-cf{position:absolute;top:-16px;z-index:5;pointer-events:none;border-radius:2px;animation:np-fall linear both}
+@keyframes np-fall{to{transform:translateY(520px) rotate(560deg);opacity:0}}
+.np a:focus-visible,.np button:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+@media(max-width:700px){.np-box{grid-template-columns:1fr;border-radius:24px}.np-side{padding:26px 24px 22px}.np-side h2{font-size:20px;padding-right:36px}.np-side p,.np-side ul{display:none}.np-side img{width:96px;margin-bottom:12px}.np-form,.np-ok{padding:22px 24px 26px}.np-form h3{display:none}.np-ok{grid-column:1;grid-row:2;padding:30px 24px}}
+@media(prefers-reduced-motion:reduce){.np,.np-box,.np-x,.np-i,.np-side li::before,.np-tick circle,.np-tick path{animation:none!important;transition:none!important}.np-tick path{stroke-dashoffset:0}.np-side::before,.np-side::after,.np-dot,.np-btn::after,.np-tick::before{animation:none!important}.np-dot{display:none}}
+/* ===== COPY TILL HERE ===== */
+</style>
+</head>
+<body>
+<!-- Demo content, you do not need to copy this part -->
+<div class="demo"><h1>Popup demo</h1><p>The popup opens by itself after 5 seconds. You can also open it with the button.</p><button type="button" data-popup>Open popup</button></div>
+
+<!-- ===== COPY FROM HERE: popup HTML (paste just before </body> in index.html) ===== -->
+<div class="np" id="npop" role="dialog" aria-modal="true" aria-labelledby="np-t" hidden>
+<div class="np-box">
+<button class="np-x" type="button" aria-label="Close" data-np-close>&times;</button>
+<div class="np-side"><i class="np-dot" style="left:8%;width:5px;height:5px;animation-duration:9s;animation-delay:-1s"></i><i class="np-dot" style="left:22%;width:8px;height:8px;animation-duration:12s;animation-delay:-5s"></i><i class="np-dot" style="left:38%;width:5px;height:5px;animation-duration:10s;animation-delay:-8s"></i><i class="np-dot" style="left:55%;width:7px;height:7px;animation-duration:13s;animation-delay:-3s"></i><i class="np-dot" style="left:70%;width:5px;height:5px;animation-duration:9s;animation-delay:-6s"></i><i class="np-dot" style="left:84%;width:8px;height:8px;animation-duration:11s;animation-delay:-2s"></i><i class="np-dot" style="left:46%;width:4px;height:4px;animation-duration:8s;animation-delay:-7s"></i>
+<img class="np-i" style="--i:1" src="data:image/png;base64,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" alt="Nikanuweb" width="104" height="50">
+<h2 class="np-i" style="--i:2" id="np-t">Get your free digital marketing plan</h2>
+<p class="np-i" style="--i:3">Tell us about your business. We will share clear ideas to help you grow online.</p>
+<ul><li class="np-i" style="--i:4">Free consultation</li><li class="np-i" style="--i:5">Plan made for your budget</li><li class="np-i" style="--i:6">Simple words, honest advice</li></ul>
+</div>
+<form class="np-form" id="np-form" novalidate>
+<h3 class="np-i" style="--i:2">Let's grow your business</h3>
+<div class="np-i" style="--i:3"><label for="np-name">Your name</label><input id="np-name" name="name" autocomplete="name" required></div>
+<div class="np-i" style="--i:4"><label for="np-phone">Phone number</label><input id="np-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required></div>
+<div class="np-i" style="--i:5"><label for="np-email">Email</label><input id="np-email" name="email" type="email" autocomplete="email" required></div>
+<div class="np-i" style="--i:6"><label for="np-service">I am interested in</label><select id="np-service" name="service"><option>PPC Management</option><option>Social Media Marketing</option><option>SEO</option><option>Content Marketing</option><option>Website Development</option><option>Web Developer</option><option>WordPress Development</option><option>E-Commerce</option><option>Not sure yet</option></select></div>
+<input class="np-hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+<input type="hidden" name="_subject" value="New enquiry from nikanuweb.in popup"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
+<button class="np-btn np-i" style="--i:7" type="submit">Send My Details ↗</button>
+<p class="np-msg" id="np-msg" aria-live="polite"></p>
+<p class="np-note np-i" style="--i:8">By sending, you agree to our <a href="/privacy-policy">Privacy Policy</a>.</p>
+</form>
+<div class="np-ok" id="np-ok" hidden>
+<div class="np-tick"><svg viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="44"/><path d="M28 50l14 14 27-30"/></svg></div>
+<h3 class="np-i" style="--i:3">Thank you!</h3>
+<p class="np-i" style="--i:4" id="np-oksub"></p>
+</div>
+</div>
+</div>
+<!-- ===== COPY TILL HERE ===== -->
+
+<!-- ===== COPY FROM HERE: popup JS (paste right after the popup HTML) ===== -->
+<script>
+(function(){
+  /* 1) Every filled form is emailed to this address through FormSubmit (free service).
+        One-time setup: submit the form once yourself, then open the "Activate" email that
+        FormSubmit sends to this inbox (check Spam too) and click the button. */
+  var FORM_URL = 'https://formsubmit.co/ajax/nikanuweb@gmail.com';
+  /* 2) Seconds to wait AFTER the page has loaded, before the popup opens by itself (once per visit).
+        Use 0 to turn auto-open off. */
+  var AUTO_SECONDS = 5;
+
+  var el = document.getElementById('npop'), form = document.getElementById('np-form'),
+      ok = document.getElementById('np-ok'), oksub = document.getElementById('np-oksub'),
+      msg = document.getElementById('np-msg'), box = el && el.querySelector('.np-box'),
+      last = null, closing = false;
+  if (!el || !form) return;
+  function seen(){ try { return sessionStorage.getItem('npop') === '1'; } catch(e){ return false; } }
+  function mark(){ try { sessionStorage.setItem('npop', '1'); } catch(e){} }
+
+  function openP(){
+    if (!el.hidden || closing) return;
+    last = document.activeElement;
+    box.style.minHeight = ''; form.reset(); form.hidden = false; ok.hidden = true; msg.textContent = ''; msg.className = 'np-msg';
+    form.querySelector('.np-btn').disabled = false;
+    el.classList.remove('out'); el.hidden = false;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('on'); }); });
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function(){ if (!form.hidden) form.name.focus(); }, 700);
+  }
+  function closeP(){
+    if (el.hidden || closing) return;
+    closing = true; mark();
+    el.classList.remove('on'); el.classList.add('out');
+    document.documentElement.style.overflow = '';
+    setTimeout(function(){
+      el.hidden = true; el.classList.remove('out'); closing = false;
+      var c = box.querySelectorAll('.np-cf'); for (var i = 0; i < c.length; i++) c[i].remove();
+      if (last && last.focus) last.focus();
+    }, 520);
+  }
+  el.addEventListener('click', function(e){ if (e.target === el || e.target.closest('[data-np-close]')) closeP(); });
+  document.addEventListener('keydown', function(e){
+    if (el.hidden) return;
+    if (e.key === 'Escape') closeP();
+    if (e.key === 'Tab'){
+      var all = el.querySelectorAll('a[href],button:not([disabled]),input:not(.np-hp),select'), f = [];
+      for (var i = 0; i < all.length; i++) if (all[i].offsetParent !== null) f.push(all[i]);
+      if (!f.length) return;
+      var a = f[0], z = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === a){ e.preventDefault(); z.focus(); }
+      else if (!e.shiftKey && document.activeElement === z){ e.preventDefault(); a.focus(); }
+    }
+  });
+  /* any button or link with data-popup (or href="#popup") opens it */
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-popup],a[href="#popup"]');
+    if (t){ e.preventDefault(); openP(); }
+  });
+  var secs = (typeof window.NPOP_SECONDS === 'number') ? window.NPOP_SECONDS : AUTO_SECONDS, ready = false;
+  function arm(){
+    if (secs <= 0) return;
+    setTimeout(function(){ ready = true; if (!seen()) openP(); }, secs * 1000);
+  }
+  /* the wait starts only after the page has fully loaded */
+  if (document.readyState === 'complete') arm(); else window.addEventListener('load', arm);
+  /* desktop: open when the mouse leaves through the top, but never before the wait is over */
+  document.addEventListener('mouseout', function(e){
+    if (ready && !seen() && e.clientY <= 0 && !e.relatedTarget) openP();
+  });
+
+  /* confetti burst on success */
+  function burst(){
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var k = ['#7c6cf0', '#a89cf5', '#282349', '#fdebd0', '#d3f2ee', '#e9e6fb'];
+    for (var i = 0; i < 40; i++){
+      var s = document.createElement('i'); s.className = 'np-cf';
+      s.style.cssText = 'left:' + (Math.random() * 100) + '%;background:' + k[i % k.length] + ';width:' + (6 + Math.random() * 6) + 'px;height:' + (10 + Math.random() * 8) + 'px;animation-delay:' + (Math.random() * .6) + 's;animation-duration:' + (2 + Math.random() * 1.6) + 's';
+      box.appendChild(s);
+    }
+  }
+  function done(text){ box.style.minHeight = box.offsetHeight + 'px'; oksub.textContent = text; form.hidden = true; ok.hidden = false; burst(); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    msg.className = 'np-msg'; msg.textContent = '';
+    if (form._honey.value) return; /* spam trap */
+    if (!form.name.value.trim() || !form.phone.value.trim() || !form.email.value.trim() || !form.email.checkValidity()){
+      msg.className = 'np-msg err'; msg.textContent = 'Please fill your name, phone and a valid email.'; return;
+    }
+    var btn = form.querySelector('.np-btn');
+    if (FORM_URL){
+      btn.disabled = true; msg.textContent = 'Sending...';
+      var data = new FormData(form); data.append('Page', location.href);
+      fetch(FORM_URL, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+        .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+        .then(function(res){
+          if (!res.ok || res.d.success === false || res.d.success === 'false') throw 0;
+          mark(); done('We got your details. Our team will contact you soon.');
+          setTimeout(function(){ location.href = '/thank-you'; }, 2600);
+        })
+        .catch(function(){ btn.disabled = false; msg.className = 'np-msg err'; msg.textContent = 'Sorry, it did not send. Please call 9653874745.'; });
+    } else {
+      var body = 'Name: ' + form.name.value + '\nPhone: ' + form.phone.value + '\nEmail: ' + form.email.value + '\nInterested in: ' + form.service.value;
+      mark(); done('Your email app is opening. Please press Send to finish.');
+      setTimeout(function(){
+        location.href = 'mailto:Info@nikanuweb.com?subject=' + encodeURIComponent('Free plan enquiry') + '&body=' + encodeURIComponent(body);
+      }, 900);
+      setTimeout(closeP, 5200);
+    }
+  });
+})();
+</script>
+<!-- ===== COPY TILL HERE ===== -->
+</body>
+</html>
