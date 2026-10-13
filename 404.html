@@ -168,8 +168,9 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--ac);outline-offset:3p
         <span aria-hidden="true">4</span>
       </div>
 
-      <h1>This page took a wrong turn</h1>
-      <p class="lead">The page you are looking for does not exist or has moved. Let's get you back to growing your brand online.</p>
+      <h1>Page Not Found!</h1>
+      <p class="lead">Sorry, the page you are looking for is not available or may have been moved. Please visit our homepage or explore our services to find what you need.</p>
+      <p class="lead">Thank you for visiting NIKANUWEB!</p>
 
       <div class="scan" aria-live="polite"><i></i><span id="typed"></span><span class="caret"></span></div>
 
@@ -178,11 +179,6 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--ac);outline-offset:3p
         <a class="btn light" href="/services">Our Services</a>
       </div>
     </div>
-
-    <div class="chip c1">Status<b>404 Not Found</b></div>
-    <div class="chip c2">Way back<b>1 click</b></div>
-  </header>
-</div>
 
 <!-- ===== SUGGESTED PAGES ===== -->
 <section style="padding-bottom:30px"><div class="wrap">
@@ -240,7 +236,6 @@ a:focus-visible,.btn:focus-visible{outline:3px solid var(--ac);outline-offset:3p
   /* typing line with the URL that was not found */
   var path = location.pathname + location.search;
   if (path.length > 46) path = path.slice(0, 43) + '...';
-  var full = 'Scanning ' + path + ' ... no page found';
   var typed = document.getElementById('typed');
   if (reduce) { typed.textContent = full; }
   else {
