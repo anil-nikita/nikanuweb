@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Popup – Nikanu Web Solution</title>
-<meta name="robots" content="noindex, nofollow">
+<!-- ===== NIKANU POPUP: ek hi block. Isse apni har page me </body> se THEEK PEHLE paste karo ===== -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <style>
-body{margin:0;background:#f6f6f8;color:#14132a;font:400 16px/1.65 'Plus Jakarta Sans',system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}
-.demo h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0 0 10px}
-.demo p{color:#6b6a80;margin:0 0 22px}
-.demo button{padding:13px 26px;border-radius:999px;border:0;background:#14132a;color:#fff;font:600 15px inherit;font-family:inherit;cursor:pointer}
-/* ===== COPY FROM HERE: popup CSS (paste inside your <style>) ===== */
-.np{--ac:#7c6cf0;--navy:#282349;--tx:#14132a;--mut:#6b6a80;--line:#e6e4f0;--soft:#e9e6fb;position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(40,35,73,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;transition:opacity .45s ease;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;color:var(--tx);text-align:left}
+.np{--ac:#7c6cf0;--navy:#282349;--tx:#14132a;--mut:#6b6a80;--line:#e6e4f0;--soft:#e9e6fb;position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(40,35,73,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);opacity:0;transition:opacity .45s ease;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:16px;line-height:1.55;color:var(--tx);text-align:left}
 .np[hidden]{display:none}
 .np.on{opacity:1}
 .np *{box-sizing:border-box;margin:0}
@@ -70,14 +59,7 @@ body{margin:0;background:#f6f6f8;color:#14132a;font:400 16px/1.65 'Plus Jakarta 
 .np a:focus-visible,.np button:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
 @media(max-width:700px){.np-box{grid-template-columns:1fr;border-radius:24px}.np-side{padding:26px 24px 22px}.np-side h2{font-size:20px;padding-right:36px}.np-side p,.np-side ul{display:none}.np-side img{width:96px;margin-bottom:12px}.np-form,.np-ok{padding:22px 24px 26px}.np-form h3{display:none}.np-ok{grid-column:1;grid-row:2;padding:30px 24px}}
 @media(prefers-reduced-motion:reduce){.np,.np-box,.np-x,.np-i,.np-side li::before,.np-tick circle,.np-tick path{animation:none!important;transition:none!important}.np-tick path{stroke-dashoffset:0}.np-side::before,.np-side::after,.np-dot,.np-btn::after,.np-tick::before{animation:none!important}.np-dot{display:none}}
-/* ===== COPY TILL HERE ===== */
 </style>
-</head>
-<body>
-<!-- Demo content, you do not need to copy this part -->
-<div class="demo"><h1>Popup demo</h1><p>The popup opens by itself after 5 seconds. You can also open it with the button.</p><button type="button" data-popup>Open popup</button></div>
-
-<!-- ===== COPY FROM HERE: popup HTML (paste just before </body> in index.html) ===== -->
 <div class="np" id="npop" role="dialog" aria-modal="true" aria-labelledby="np-t" hidden>
 <div class="np-box">
 <button class="np-x" type="button" aria-label="Close" data-np-close>&times;</button>
@@ -106,120 +88,155 @@ body{margin:0;background:#f6f6f8;color:#14132a;font:400 16px/1.65 'Plus Jakarta 
 </div>
 </div>
 </div>
-<!-- ===== COPY TILL HERE ===== -->
 
-<!-- ===== COPY FROM HERE: popup JS (paste right after the popup HTML) ===== -->
 <script>
 (function(){
-  /* 1) Every filled form is emailed to this address through FormSubmit (free service).
-        One-time setup: submit the form once yourself, then open the "Activate" email that
-        FormSubmit sends to this inbox (check Spam too) and click the button. */
+  /* 1) Form ka data is email par jayega (FormSubmit). */
   var FORM_URL = 'https://formsubmit.co/ajax/nikanuweb@gmail.com';
-  /* 2) Seconds to wait AFTER the page has loaded, before the popup opens by itself (once per visit).
-        Use 0 to turn auto-open off. */
+
+  /* 2) Page khulne ke kitne second baad popup khule. 0 = auto-open band. */
   var AUTO_SECONDS = 5;
 
-  var el = document.getElementById('npop'), form = document.getElementById('np-form'),
-      ok = document.getElementById('np-ok'), oksub = document.getElementById('np-oksub'),
-      msg = document.getElementById('np-msg'), box = el && el.querySelector('.np-box'),
-      last = null, closing = false;
-  if (!el || !form) return;
-  function seen(){ try { return sessionStorage.getItem('npop') === '1'; } catch(e){ return false; } }
-  function mark(){ try { sessionStorage.setItem('npop', '1'); } catch(e){} }
+  /* 3) Har visitor ko pehli baar popup zaroor dikhega.
+        Agar wo form bhare bina band kar de, to itne din baad dobara dikhega.
+        0 = sirf ek hi baar (dobara kabhi nahi). */
+  var REPEAT_DAYS = 7;
 
-  function openP(){
-    if (!el.hidden || closing) return;
-    last = document.activeElement;
-    box.style.minHeight = ''; form.reset(); form.hidden = false; ok.hidden = true; msg.textContent = ''; msg.className = 'np-msg';
-    form.querySelector('.np-btn').disabled = false;
-    el.classList.remove('out'); el.hidden = false;
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('on'); }); });
-    document.documentElement.style.overflow = 'hidden';
-    setTimeout(function(){ if (!form.hidden) form.name.focus(); }, 700);
-  }
-  function closeP(){
-    if (el.hidden || closing) return;
-    closing = true; mark();
-    el.classList.remove('on'); el.classList.add('out');
-    document.documentElement.style.overflow = '';
-    setTimeout(function(){
-      el.hidden = true; el.classList.remove('out'); closing = false;
-      var c = box.querySelectorAll('.np-cf'); for (var i = 0; i < c.length; i++) c[i].remove();
-      if (last && last.focus) last.focus();
-    }, 520);
-  }
-  el.addEventListener('click', function(e){ if (e.target === el || e.target.closest('[data-np-close]')) closeP(); });
-  document.addEventListener('keydown', function(e){
-    if (el.hidden) return;
-    if (e.key === 'Escape') closeP();
-    if (e.key === 'Tab'){
-      var all = el.querySelectorAll('a[href],button:not([disabled]),input:not(.np-hp),select'), f = [];
-      for (var i = 0; i < all.length; i++) if (all[i].offsetParent !== null) f.push(all[i]);
-      if (!f.length) return;
-      var a = f[0], z = f[f.length - 1];
-      if (e.shiftKey && document.activeElement === a){ e.preventDefault(); z.focus(); }
-      else if (!e.shiftKey && document.activeElement === z){ e.preventDefault(); a.focus(); }
-    }
-  });
-  /* any button or link with data-popup (or href="#popup") opens it */
-  document.addEventListener('click', function(e){
-    var t = e.target.closest('[data-popup],a[href="#popup"]');
-    if (t){ e.preventDefault(); openP(); }
-  });
-  var secs = (typeof window.NPOP_SECONDS === 'number') ? window.NPOP_SECONDS : AUTO_SECONDS, ready = false;
-  function arm(){
-    if (secs <= 0) return;
-    setTimeout(function(){ ready = true; if (!seen()) openP(); }, secs * 1000);
-  }
-  /* the wait starts only after the page has fully loaded */
-  if (document.readyState === 'complete') arm(); else window.addEventListener('load', arm);
-  /* desktop: open when the mouse leaves through the top, but never before the wait is over */
-  document.addEventListener('mouseout', function(e){
-    if (ready && !seen() && e.clientY <= 0 && !e.relatedTarget) openP();
-  });
+  var KEY = 'npop_v2';
 
-  /* confetti burst on success */
-  function burst(){
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var k = ['#7c6cf0', '#a89cf5', '#282349', '#fdebd0', '#d3f2ee', '#e9e6fb'];
-    for (var i = 0; i < 40; i++){
-      var s = document.createElement('i'); s.className = 'np-cf';
-      s.style.cssText = 'left:' + (Math.random() * 100) + '%;background:' + k[i % k.length] + ';width:' + (6 + Math.random() * 6) + 'px;height:' + (10 + Math.random() * 8) + 'px;animation-delay:' + (Math.random() * .6) + 's;animation-duration:' + (2 + Math.random() * 1.6) + 's';
-      box.appendChild(s);
+  /* ---- visitor memory (localStorage + cookie backup) ---- */
+  function getRec(){
+    var raw = null;
+    try { raw = localStorage.getItem(KEY); } catch(e){}
+    if (!raw){
+      var m = document.cookie.match(new RegExp('(?:^|; )' + KEY + '=([^;]*)'));
+      if (m) raw = decodeURIComponent(m[1]);
     }
+    if (!raw) return null;
+    try { return JSON.parse(raw); } catch(e){ return null; }
   }
-  function done(text){ box.style.minHeight = box.offsetHeight + 'px'; oksub.textContent = text; form.hidden = true; ok.hidden = false; burst(); }
+  function setRec(done){
+    var s = JSON.stringify({ t: Date.now(), done: !!done });
+    try { localStorage.setItem(KEY, s); } catch(e){}
+    try { document.cookie = KEY + '=' + encodeURIComponent(s) + '; max-age=31536000; path=/; SameSite=Lax'; } catch(e){}
+  }
+  function shouldShow(){
+    if (/[?&]popup=1/.test(location.search)) return true; /* testing: yoursite.com/?popup=1 */
+    var r = getRec();
+    if (!r) return true;                 /* naya visitor */
+    if (r.done) return false;            /* form bhar chuka */
+    if (REPEAT_DAYS <= 0) return false;
+    return (Date.now() - r.t) > REPEAT_DAYS * 864e5;
+  }
 
-  form.addEventListener('submit', function(e){
-    e.preventDefault();
-    msg.className = 'np-msg'; msg.textContent = '';
-    if (form._honey.value) return; /* spam trap */
-    if (!form.name.value.trim() || !form.phone.value.trim() || !form.email.value.trim() || !form.email.checkValidity()){
-      msg.className = 'np-msg err'; msg.textContent = 'Please fill your name, phone and a valid email.'; return;
+  function init(){
+    var el = document.getElementById('npop'), form = document.getElementById('np-form'),
+        ok = document.getElementById('np-ok'), oksub = document.getElementById('np-oksub'),
+        msg = document.getElementById('np-msg'), box = el && el.querySelector('.np-box'),
+        last = null, closing = false, shown = false;
+    if (!el || !form || !box){ try{ console.warn('[Nikanu popup] popup HTML (id="npop") not found on this page'); }catch(e){} return; }
+    if (el.parentNode !== document.body) document.body.appendChild(el); /* position:fixed must live directly in body */
+    try{ console.log('[Nikanu popup] ready, opens in ' + ((typeof window.NPOP_SECONDS === 'number') ? window.NPOP_SECONDS : AUTO_SECONDS) + 's'); }catch(e){}
+
+    function openP(){
+      if (!el.hidden || closing) return;
+      shown = true;
+      var prev = getRec();
+      if (!prev || !prev.done) setRec(false);   /* khulte hi yaad kar lo: pehli baar pakka dikha */
+      last = document.activeElement;
+      box.style.minHeight = ''; form.reset(); form.hidden = false; ok.hidden = true; msg.textContent = ''; msg.className = 'np-msg';
+      form.querySelector('.np-btn').disabled = false;
+      el.classList.remove('out'); el.hidden = false;
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('on'); }); });
+      document.documentElement.style.overflow = 'hidden';
+      setTimeout(function(){ if (!form.hidden) form.name.focus(); }, 700);
     }
-    var btn = form.querySelector('.np-btn');
-    if (FORM_URL){
-      btn.disabled = true; msg.textContent = 'Sending...';
-      var data = new FormData(form); data.append('Page', location.href);
-      fetch(FORM_URL, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
-        .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
-        .then(function(res){
-          if (!res.ok || res.d.success === false || res.d.success === 'false') throw 0;
-          mark(); done('We got your details. Our team will contact you soon.');
-          setTimeout(function(){ location.href = '/thank-you'; }, 2600);
-        })
-        .catch(function(){ btn.disabled = false; msg.className = 'np-msg err'; msg.textContent = 'Sorry, it did not send. Please call 9653874745.'; });
-    } else {
-      var body = 'Name: ' + form.name.value + '\nPhone: ' + form.phone.value + '\nEmail: ' + form.email.value + '\nInterested in: ' + form.service.value;
-      mark(); done('Your email app is opening. Please press Send to finish.');
+    function closeP(){
+      if (el.hidden || closing) return;
+      closing = true;
+      el.classList.remove('on'); el.classList.add('out');
+      document.documentElement.style.overflow = '';
       setTimeout(function(){
-        location.href = 'mailto:Info@nikanuweb.com?subject=' + encodeURIComponent('Free plan enquiry') + '&body=' + encodeURIComponent(body);
-      }, 900);
-      setTimeout(closeP, 5200);
+        el.hidden = true; el.classList.remove('out'); closing = false;
+        var c = box.querySelectorAll('.np-cf'); for (var i = 0; i < c.length; i++) c[i].remove();
+        if (last && last.focus) last.focus();
+      }, 520);
     }
-  });
+
+    el.addEventListener('click', function(e){ if (e.target === el || e.target.closest('[data-np-close]')) closeP(); });
+    document.addEventListener('keydown', function(e){
+      if (el.hidden) return;
+      if (e.key === 'Escape') closeP();
+      if (e.key === 'Tab'){
+        var all = el.querySelectorAll('a[href],button:not([disabled]),input:not(.np-hp),select'), f = [];
+        for (var i = 0; i < all.length; i++) if (all[i].offsetParent !== null) f.push(all[i]);
+        if (!f.length) return;
+        var a = f[0], z = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a){ e.preventDefault(); z.focus(); }
+        else if (!e.shiftKey && document.activeElement === z){ e.preventDefault(); a.focus(); }
+      }
+    });
+
+    /* koi bhi button/link jisme data-popup ho (ya href="#popup") popup kholega */
+    document.addEventListener('click', function(e){
+      var t = e.target.closest('[data-popup],a[href="#popup"]');
+      if (t){ e.preventDefault(); openP(); }
+    });
+
+    /* auto-open: DOM ready hote hi timer shuru (load event ka wait nahi) */
+    var secs = (typeof window.NPOP_SECONDS === 'number') ? window.NPOP_SECONDS : AUTO_SECONDS, ready = false;
+    if (secs > 0){
+      setTimeout(function(){ ready = true; if (!shown && shouldShow()) openP(); }, secs * 1000);
+    }
+    /* desktop: mouse upar se bahar jaye to bhi khule (timer ke baad hi) */
+    document.addEventListener('mouseout', function(e){
+      if (ready && !shown && shouldShow() && e.clientY <= 0 && !e.relatedTarget) openP();
+    });
+
+    /* confetti */
+    function burst(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var k = ['#7c6cf0', '#a89cf5', '#282349', '#fdebd0', '#d3f2ee', '#e9e6fb'];
+      for (var i = 0; i < 40; i++){
+        var s = document.createElement('i'); s.className = 'np-cf';
+        s.style.cssText = 'left:' + (Math.random() * 100) + '%;background:' + k[i % k.length] + ';width:' + (6 + Math.random() * 6) + 'px;height:' + (10 + Math.random() * 8) + 'px;animation-delay:' + (Math.random() * .6) + 's;animation-duration:' + (2 + Math.random() * 1.6) + 's';
+        box.appendChild(s);
+      }
+    }
+    function done(text){ box.style.minHeight = box.offsetHeight + 'px'; oksub.textContent = text; form.hidden = true; ok.hidden = false; burst(); }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      msg.className = 'np-msg'; msg.textContent = '';
+      if (form._honey.value) return; /* spam trap */
+      if (!form.name.value.trim() || !form.phone.value.trim() || !form.email.value.trim() || !form.email.checkValidity()){
+        msg.className = 'np-msg err'; msg.textContent = 'Please fill your name, phone and a valid email.'; return;
+      }
+      var btn = form.querySelector('.np-btn');
+      if (FORM_URL){
+        btn.disabled = true; msg.textContent = 'Sending...';
+        var data = new FormData(form); data.append('Page', location.href);
+        fetch(FORM_URL, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+          .then(function(r){ return r.json().then(function(d){ return { ok: r.ok, d: d }; }); })
+          .then(function(res){
+            if (!res.ok || res.d.success === false || res.d.success === 'false') throw 0;
+            setRec(true); done('We got your details. Our team will contact you soon.');
+            setTimeout(function(){ location.href = '/thank-you'; }, 2600);
+          })
+          .catch(function(){ btn.disabled = false; msg.className = 'np-msg err'; msg.textContent = 'Sorry, it did not send. Please call 9653874745.'; });
+      } else {
+        var body = 'Name: ' + form.name.value + '\nPhone: ' + form.phone.value + '\nEmail: ' + form.email.value + '\nInterested in: ' + form.service.value;
+        setRec(true); done('Your email app is opening. Please press Send to finish.');
+        setTimeout(function(){
+          location.href = 'mailto:nikanuweb@gmail.com?subject=' + encodeURIComponent('Free plan enquiry') + '&body=' + encodeURIComponent(body);
+        }, 900);
+        setTimeout(closeP, 5200);
+      }
+    });
+  }
+
+  /* script kahin bhi paste ho (head ya body), ye DOM ready hone ka wait karegi */
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
-<!-- ===== COPY TILL HERE ===== -->
-</body>
-</html>
+<!-- ===== NIKANU POPUP END ===== -->
