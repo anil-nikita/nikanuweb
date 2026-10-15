@@ -1,84 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
   <url>
     <loc>https://nikanuweb.in/</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
-
-  <url>
-    <loc>https://nikanuweb.in/services</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/ppc-management</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/social-media-marketing</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/seo</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/content-marketing</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/website-development</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/web-developer</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/wordpress-development</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/e-commerce</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/ppc-management</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/social-media-marketing</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/content-marketing</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/e-commerce</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/web-developer</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/website-development</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/wordpress-development</loc>
-  </url>
-
-  <url>
-    <loc>https://nikanuweb.in/faqs/seo</loc>
-  </url>
-
   <url>
     <loc>https://nikanuweb.in/about-us</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
-
+  <url>
+    <loc>https://nikanuweb.in/services</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/ppc-management</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/social-media-marketing</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/seo</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/content-marketing</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/website-development</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/web-developer</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/wordpress-development</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/e-commerce</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/ppc-management</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/social-media-marketing</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/seo</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/content-marketing</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/website-development</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/web-developer</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/wordpress-development</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/faqs/e-commerce</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/blogs</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
   <url>
     <loc>https://nikanuweb.in/contact-us</loc>
+    <lastmod>2026-10-15</lastmod>
   </url>
-
+  <url>
+    <loc>https://nikanuweb.in/why-choose-us</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/privacy-policy</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://nikanuweb.in/terms-and-conditions</loc>
+    <lastmod>2026-10-15</lastmod>
+  </url>
 </urlset>
