@@ -250,5 +250,16 @@ footer li a{transition:color .2s,padding .2s}footer li a:hover{color:#fff;paddin
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add('on');e.target.querySelectorAll('[data-n]').forEach(function(b){var n=+b.dataset.n,i=0,t=setInterval(function(){i+=Math.max(1,n/40);if(i>=n){i=n;clearInterval(t)}b.textContent=Math.round(i)+'+'},30)});io.unobserve(e.target)})},{threshold:.15});
 document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
 </script>
+<!-- WhatsApp Button: ye poora code </body> se just pehle paste karo -->
+<style>
+.wa-float{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:9999;display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:999px;background:#fff;color:#008069;font:700 17px/1 'Plus Jakarta Sans',system-ui,sans-serif;text-decoration:none;box-shadow:0 10px 30px -8px rgba(0,0,0,.3);border:1px solid rgba(0,128,105,.15);transition:transform .25s,box-shadow .25s}
+.wa-float:hover{transform:translateY(-50%) scale(1.05);box-shadow:0 14px 34px -8px rgba(0,0,0,.4)}
+.wa-float svg{width:26px;height:26px;flex:none}
+@media(max-width:600px){.wa-float{right:10px;padding:13px}.wa-float span{display:none}}
+</style>
+<a class="wa-float" href="https://wa.me/919887474587?text=Hello%20Nikanu%20Web%20Solutions%2C%20I%20want%20to%20know%20more%20about%20your%20services." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<svg viewBox="0 0 24 24" fill="none" stroke="#008069" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.9A8.5 8.5 0 1 1 8 19.4L3 21z"/><path d="M9 10c.3 2 2 3.8 4.2 4.6l1.2-1.3 2 .9c-.3 1.2-1.4 2-2.7 1.8C10.800 15.600 8.400 13 8 10.300c-.1-1.200.7-2.200 1.700-2.500l.9 2z" fill="#008069" stroke="none"/></svg>
+<span>WhatsApp</span>
+</a>
 </body>
 </html>
