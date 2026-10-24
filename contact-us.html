@@ -132,12 +132,18 @@ nav ul a.on{color:var(--tx);font-weight:700}
 </div>
 <div class="rv" style="background:#fff;border:1px solid var(--line);border-radius:32px;padding:36px">
 <h2 style="font-size:28px;margin:0 0 20px">Send Us a Message</h2>
-<form onsubmit="event.preventDefault();this.querySelector('button').textContent='Thank you! We will contact you soon ✓'">
-<div class="row"><input placeholder="Your Name" required><input type="tel" placeholder="Phone Number"></div>
-<input type="email" placeholder="Your Email" required>
-<select><option>PPC Management</option><option>Social Media Marketing</option><option>SEO</option><option>Content Marketing</option><option>Website Development</option><option>Web Developer</option><option>WordPress Development Company</option><option>E-Commerce</option></select>
-<textarea placeholder="Your Message"></textarea>
-<button class="btn" type="submit" style="justify-content:center">Send Message ↗</button></form></div>
+<form action="https://formsubmit.co/nikanuweb@gmail.com" method="POST">
+  <input type="hidden" name="_subject" value="New Enquiry - nikanuweb.in">
+  <input type="hidden" name="_next" value="https://nikanuweb.in/thank-you">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+  <div class="row"><input name="Name" placeholder="Your Name" required><input name="Phone" type="tel" placeholder="Phone Number"></div>
+  <input name="Email" type="email" placeholder="Your Email" required>
+  <select name="Service"><option>PPC Management</option><option>Social Media Marketing</option><option>SEO</option><option>Content Marketing</option><option>Website Development</option><option>Web Developer</option><option>WordPress Development Company</option><option>E-Commerce</option></select>
+  <textarea name="Message" placeholder="Your Message"></textarea>
+  <button class="btn" type="submit" style="justify-content:center">Send Message ↗</button>
+</form>
 </div></div></section>
 <section style="padding-top:10px"><div class="wrap"><div class="tag rv">What Happens Next</div><h2 class="rv">Simple Steps After You Contact Us</h2>
 <div class="feat" style="grid-template-columns:repeat(3,1fr)">
