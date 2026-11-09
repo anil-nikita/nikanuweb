@@ -150,5 +150,6 @@ return '<a class="case rv on" href="blog?slug='+encodeURIComponent(b.slug)+'"><d
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add('on');e.target.querySelectorAll('[data-n]').forEach(function(b){var n=+b.dataset.n,i=0,t=setInterval(function(){i+=Math.max(1,n/40);if(i>=n){i=n;clearInterval(t)}b.textContent=Math.round(i)+'+'},30)});io.unobserve(e.target)})},{threshold:.15});
 document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(i%4)*80+'ms';io.observe(el)});
 </script>
+<script src="wp-blogs.js"></script>
 </body>
 </html>
